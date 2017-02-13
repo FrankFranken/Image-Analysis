@@ -4,14 +4,30 @@
 <h2>@ViewBag.Title.</h2>
 <h3>@ViewBag.Message</h3>
 
-<address>
-    One Microsoft Way<br />
-    Redmond, WA 98052-6399<br />
-    <abbr title="Phone">P:</abbr>
-    425.555.0100
-</address>
-
-<address>
-    <strong>Support:</strong>   <a href="mailto:Support@example.com">Support@example.com</a><br />
-    <strong>Marketing:</strong> <a href="mailto:Marketing@example.com">Marketing@example.com</a>
-</address>
+<div class="col-xs-12 col-sm-6">
+    <div class="col-md-6 col-md-offset-6">
+        <h1 id="indexheader">Get In Touch</h1>
+        <form>
+            <div class="form-group" id="textarea">
+                <label for="textarea">First Name</label>
+                <input type="email" class="form-control" id="textarea" placeholder="Enter first name">
+                <small id="textarea"</small>
+            </div>
+            <div class="form-group">
+                <label for="textarea">Last Name</label>
+                <input type="email" class="form-control" id="textarea" placeholder="Enter last name">
+                <small id="textarea"</small>
+            </div>
+            <div class="form-group">
+                <label for="inputEmail">Email address</label>
+                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
+            </div>
+            <div class="form-group">
+                <label for="textarea">Message</label>
+                <textarea class="form-control" id="textarea" rows="3" placeholder="Enter message"></textarea>
+            </div>
+            <button type="submit" class="btn btn-info buttonmargin">Submit</button>
+        </form>
+    </div>
+</div>
+</div>
