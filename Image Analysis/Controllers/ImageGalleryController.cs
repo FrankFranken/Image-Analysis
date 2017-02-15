@@ -3,11 +3,15 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web;
 using System.Web.Mvc;
+using System.Web.UI.WebControls;
+using Image_Analysis.Models;
+using Microsoft.AspNet.Identity;
 
 namespace Image_Analysis.Controllers
 {
     public class ImageGalleryController : Controller
     {
+        private ImagesUploadEntities _context = new ImagesUploadEntities();
         // GET: ImageGallery
         public ActionResult Index()
         {
@@ -17,8 +21,8 @@ namespace Image_Analysis.Controllers
         public ActionResult Gallery()
         {
             List<ImageGallery> all = new List<ImageGallery>();
-            using (MyDatabaseEntities dc = new MyDatabaseEntities())
-            {
+            using (ImagesUploadEntities dc = new ImagesUploadEntities())
+            {            
                 all = dc.ImageGalleries.ToList();
             }
             return View(all);
@@ -49,11 +53,14 @@ namespace Image_Analysis.Controllers
             byte[] data = new byte[IG.File.ContentLength];
             IG.File.InputStream.Read(data, 0, IG.File.ContentLength);
             IG.ImageData = data;
-            using (MyDatabaseEntities dc = new MyDatabaseEntities())
+            using (ImagesUploadEntities dc = new ImagesUploadEntities())
             {
+                IG.Id = User.Identity.GetUserId();
                 dc.ImageGalleries.Add(IG);
                 dc.SaveChanges();
+
             }
+            
             return RedirectToAction("Gallery");
         }
     }

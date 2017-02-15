@@ -7,22 +7,21 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using System.ComponentModel.DataAnnotations;
-
 namespace Image_Analysis
 {
-    using System.Web;
     using System;
     using System.Collections.Generic;
     using System.ComponentModel.DataAnnotations;
-    
+    using System.Web;
+
     public partial class ImageGallery
     {
         public int ImageID { get; set; }
         public int ImageSize { get; set; }
         public string FileName { get; set; }
         public byte[] ImageData { get; set; }
-        [Required(ErrorMessage="Please select an image file")]
+        public string Id { get; set; }
+        [Required(ErrorMessage = "Please select an image file")]
         public HttpPostedFileBase File { get; set; }
     }
 }

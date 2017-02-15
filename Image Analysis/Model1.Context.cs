@@ -13,10 +13,10 @@ namespace Image_Analysis
     using System.Data.Entity;
     using System.Data.Entity.Infrastructure;
     
-    public partial class MyDatabaseEntities : DbContext
+    public partial class ImagesUploadEntities : DbContext
     {
-        public MyDatabaseEntities()
-            : base("name=MyDatabaseEntities")
+        public ImagesUploadEntities()
+            : base("name=ImagesUploadEntities")
         {
         }
     
