@@ -42,6 +42,10 @@ namespace Image_Analysis.Controllers
                 return View(all);
         }
 
+        public ActionResult Analize()
+        {
+            return View();
+        }
         public ActionResult Upload()
         {
             return View();

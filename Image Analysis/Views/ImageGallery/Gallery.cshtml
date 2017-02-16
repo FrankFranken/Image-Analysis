@@ -19,7 +19,7 @@
             @while (j < i + 4 && j < Model.Count())
             {
                 <td>
-                    <img src="data:image/png;base64,@Convert.ToBase64String(Model[j].ImageData,0,Model[j].ImageData.Length)" height="400" width="600"/>
+                    <a href="@Url.Action("Analize","ImageGallery")"><img src="data:image/png;base64,@Convert.ToBase64String(Model[j].ImageData,0,Model[j].ImageData.Length)" height="400" width="600" /></a>
                 </td>
                 j++;
             }

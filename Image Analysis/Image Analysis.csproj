@@ -314,6 +314,7 @@
     <Content Include="Views\Shared\_LoginPartial.cshtml" />
     <Content Include="Views\ImageGallery\Gallery.cshtml" />
     <Content Include="Views\ImageGallery\Upload.cshtml" />
+    <Content Include="Views\ImageGallery\Analize.cshtml" />
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
