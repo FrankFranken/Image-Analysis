@@ -21,7 +21,10 @@ namespace Image_Analysis
         public string FileName { get; set; }
         public byte[] ImageData { get; set; }
         public string Id { get; set; }
-        [Required(ErrorMessage = "Please select an image file")]
+    }
+
+    public partial class ImageGallery
+    {
         public HttpPostedFileBase File { get; set; }
     }
 }

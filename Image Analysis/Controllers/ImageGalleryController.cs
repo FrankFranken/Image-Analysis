@@ -1,17 +1,20 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Data.Entity;
 using System.Linq;
+using System.Runtime.InteropServices;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Image_Analysis.Models;
+using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
 
 namespace Image_Analysis.Controllers
 {
     public class ImageGalleryController : Controller
     {
-        private ImagesUploadEntities _context = new ImagesUploadEntities();
+        //ApplicationDbContext _context = new ApplicationDbContext();
         // GET: ImageGallery
         public ActionResult Index()
         {
@@ -22,10 +25,21 @@ namespace Image_Analysis.Controllers
         {
             List<ImageGallery> all = new List<ImageGallery>();
             using (ImagesUploadEntities dc = new ImagesUploadEntities())
-            {            
-                all = dc.ImageGalleries.ToList();
+            {
+                if (dc.ImageGalleries != null)
+                {
+                    var ID = User.Identity.GetUserId();
+                    foreach (var image in dc.ImageGalleries)
+                    {
+                        if (image.Id == ID && image.Id != null)
+                        {
+                            all = dc.ImageGalleries.ToList();
+                        }
+                    }
+                }
+                //all = dc.ImageGalleries.ToList();
             }
-            return View(all);
+                return View(all);
         }
 
         public ActionResult Upload()
@@ -36,6 +50,7 @@ namespace Image_Analysis.Controllers
         [HttpPost]
         public ActionResult Upload(ImageGallery IG)
         {
+
             //Apply Validation
             if (IG.File.ContentLength > (2*1024*1024))
             {
