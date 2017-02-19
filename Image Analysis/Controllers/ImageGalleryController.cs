@@ -1,20 +1,29 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Data.Entity;
+using System.IO;
 using System.Linq;
+using System.Net.Http;
+using System.Net.Http.Headers;
 using System.Runtime.InteropServices;
+using System.Text;
+using System.Threading.Tasks;
 using System.Web;
 using System.Web.Mvc;
 using System.Web.UI.WebControls;
 using Image_Analysis.Models;
+using Image_Analysis.ViewModels;
 using Microsoft.Ajax.Utilities;
 using Microsoft.AspNet.Identity;
+using Microsoft.Owin.Security.DataHandler.Encoder;
+using Image = System.Drawing.Image;
 
 namespace Image_Analysis.Controllers
 {
+    
     public class ImageGalleryController : Controller
     {
-        //ApplicationDbContext _context = new ApplicationDbContext();
+        ApplicationDbContext _context = new ApplicationDbContext();
         // GET: ImageGallery
         public ActionResult Index()
         {
@@ -37,15 +46,28 @@ namespace Image_Analysis.Controllers
                         }
                     }
                 }
-                //all = dc.ImageGalleries.ToList();
             }
                 return View(all);
         }
-
-        public ActionResult Analize()
+        public ActionResult Analize(int id)
         {
-            return View();
+            AnalizeViewModel viewModel = new AnalizeViewModel();
+            using (ImagesUploadEntities dc = new ImagesUploadEntities())
+            {
+                if (dc.ImageGalleries != null)
+                {
+                    foreach (var image in dc.ImageGalleries)
+                    {
+                        if (image.ImageID == id)
+                        {
+                            viewModel.Image = Convert.ToBase64String(image.ImageData);
+                        }
+                    }
+                }
+            }
+            return View(viewModel);
         }
+
         public ActionResult Upload()
         {
             return View();
