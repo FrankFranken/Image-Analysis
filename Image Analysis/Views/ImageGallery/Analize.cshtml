@@ -11,8 +11,25 @@
 <head>
     @*<script src="@Url.Content("~/Scripts/Images.js")"></script>*@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
     <script src="/Scripts/jquery-1.10.2.js"></script>
-    
+    <style>
+        .rect {
+            position: absolute;
+            border-color: blue;
+            border-style: solid;
+            border-width: 4px;
+            z-index: 10;
+        }
+
+        #result {
+            position: relative;
+            text-align: center;
+            margin: 0 auto;
+            width: auto;
+        }
+
+    </style>
 </head>
    
 <body>
@@ -21,8 +38,8 @@
 <table>
     <tr>
         <td>
-            <img src="data:image/png;base64,@Model.Image" height="400" width="600" id="filename"/>
-            <button id="btn">Analyze</button>
+            <img src="data:image/png;base64,@Model.Image" height ="400" id="filename" data-container="body" data-toggle="popover" data-content="hello world"/>
+            <button id="btn">Analize</button>
         </td>
     </tr>
 </table>
@@ -32,7 +49,7 @@
     var imageJSON = {
         "image": {
             "imgLocation": file.src
-        } 
+        }
     }
     var apiKey = "74106f204fd0492e9b7d93aba5b3e022";
     var apiUrl = "https://westus.api.cognitive.microsoft.com/emotion/v1.0/recognize?";
@@ -41,7 +58,7 @@
         var file = document.getElementById('filename');
         CallAPI(imageJSON.image.imgLocation, apiUrl, apiKey);
     });
-    makeblob = function (file) {
+    makeblob = function(file) {
         var BASE64_MARKER = ';base64,';
         if (file.indexOf(BASE64_MARKER) == -1) {
             var parts = file.split(',');
@@ -74,7 +91,7 @@
                 processData: false,
                 dataType: "json",
                 data: makeblob(file)
-            
+
             })
             .done(function(response) {
                 console.log("success");
@@ -84,10 +101,68 @@
                 console.log("error");
             });
 
-        function processResult(response) {
-            var data = JSON.stringify(response);
-            $('#response').text(data);
+    }
+
+    function processResult(response) {
+        var dataI = JSON.stringify(response);
+        $('#response').text(dataI);
+        var data = JSON.parse(dataI);
+
+        //draw rectangle for each face
+        $.each(data,
+            function(index, value) {
+                DrawFaceRectangle(index, value);
+            });
+
+        //draw rectangle for each face
+        function DrawFaceRectangle(index, value) {
+
+            var rect = document.createElement('div');
+            rect.className = "rect";
+            rect.style.height = value.faceRectangle.height + "px";
+            rect.style.width = value.faceRectangle.width + "px";
+            rect.style.left = value.faceRectangle.left + "px";
+            rect.style.top = value.faceRectangle.top + "px";
+            rect.id = "rect" + index;
+
+            var rank = document.createElement('div');
+            rank.className = "rank";
+            rank.innerHTML = "#" + (index + 1);
+
+            rect.appendChild(rank);
+
+            $('#result').append(rect);
+
+            //add popover
+            var popoverBody = "Happiness: " +
+                convertToPercent(value.scores.happiness) +
+                "<br>Fear: " +
+                convertToPercent(value.scores.fear) +
+                "<br>Anger: " +
+                convertToPercent(value.scores.anger) +
+                "<br>Contempt: " +
+                convertToPercent(value.scores.contempt) +
+                "<br>Disgust: " +
+                convertToPercent(value.scores.disgust) +
+                "<br>Neutral: " +
+                convertToPercent(value.scores.neutral) +
+                "<br>Sadness: " +
+                convertToPercent(value.scores.sadness) +
+                "<br>Surprise: " +
+                convertToPercent(value.scores.surprise);
+            $('#rect' + index).popover({
+                title: (index + 1),
+                content: popoverBody,
+                html: "true",
+                trigger: "click"
+            });
+
+            function convertToPercent(number) {
+                var fraction = Number(number.toFixed(2));
+                return (fraction * 100) + '&#37;';
+            }
         }
-    };
+    }
 </script>
+    
 </body>
