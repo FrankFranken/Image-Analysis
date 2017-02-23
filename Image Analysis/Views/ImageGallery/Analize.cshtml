@@ -16,260 +16,261 @@
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
 <script src="/Scripts/jquery-1.10.2.js"></script>
-    <script>
+<script>
+    //Emotions
     function processResult(response) {
-    var dataI = JSON.stringify(response);
-    //$('#response').text(dataI);
-    var dataII = JSON.parse(dataI);
+        var dataI = JSON.stringify(response);
+        var dataII = JSON.parse(dataI);
 
-    var disgust = pullDisgust(dataII);
-    var roundedDisgust = roundDisgust(disgust);
-    var finalDisgust = addDigust(roundedDisgust);
+        var disgust = pullDisgust(dataII);
+        var roundedDisgust = roundDisgust(disgust);
+        var finalDisgust = addDigust(roundedDisgust);
 
-    var anger = pullAnger(dataII);
-    var roundedAnger = roundAnger(anger);
-    var finalAnger = addAnger(roundedAnger);
+        var anger = pullAnger(dataII);
+        var roundedAnger = roundAnger(anger);
+        var finalAnger = addAnger(roundedAnger);
 
-    var happiness = pullHappiness(dataII);
-    var roundedHappiness = roundHappiness(happiness);
-    var finalHappiness = addHappiness(roundedHappiness);
+        var happiness = pullHappiness(dataII);
+        var roundedHappiness = roundHappiness(happiness);
+        var finalHappiness = addHappiness(roundedHappiness);
 
-    var fear = pullFear(dataII);
-    var roundedFear = roundFear(fear);
-    var finalFear = addFear(roundedFear);
+        var fear = pullFear(dataII);
+        var roundedFear = roundFear(fear);
+        var finalFear = addFear(roundedFear);
 
-    var neutral = pullNeutral(dataII);
-    var roundedNeutral = roundNeutral(neutral);
-    var finalNeutral = addNeutral(roundedNeutral);
+        var neutral = pullNeutral(dataII);
+        var roundedNeutral = roundNeutral(neutral);
+        var finalNeutral = addNeutral(roundedNeutral);
 
-    var sadness = pullSadness(dataII);
-    var roundedSadness = roundSadness(sadness);
-    var finalSadness = addSadness(roundedSadness);
+        var sadness = pullSadness(dataII);
+        var roundedSadness = roundSadness(sadness);
+        var finalSadness = addSadness(roundedSadness);
 
-    var surprise = pullSurprise(dataII);
-    var roundedSurprise = roundSurprise(surprise);
-    var finalSurprise = addSurprise(roundedSurprise);
+        var surprise = pullSurprise(dataII);
+        var roundedSurprise = roundSurprise(surprise);
+        var finalSurprise = addSurprise(roundedSurprise);
 
-    Checker(finalDisgust, finalAnger, finalHappiness, finalFear, finalNeutral, finalSadness, finalSurprise);
+        Checker(finalDisgust, finalAnger, finalHappiness, finalFear, finalNeutral, finalSadness, finalSurprise);
     }
     //Disgust
     function pullDisgust(dataII) {
-    var list = [];
-    for (var i = 0; i < dataII.length; i++) {
-    var disgust = dataII[i].scores.disgust;
-    list.push(disgust);
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < dataII.length; i++) {
+            var disgust = dataII[i].scores.disgust;
+            list.push(disgust);
+        }
+        return list;
     }
     function roundDisgust(disgust) {
-    var list = [];
-    for (var i = 0; i < disgust.length; i++) {
-        var rw = disgust[i];
-        var x = rw.toString().length;
-        if (x >= 8) {
-            var r = rw.toString().slice(0, -5);
-            list.push(r);
-        } else {
-            list.push(rw);
-        }      
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < disgust.length; i++) {
+            var rw = disgust[i];
+            var x = rw.toString().length;
+            if (x >= 8) {
+                var r = rw.toString().slice(0, -5);
+                list.push(r);
+            } else {
+                list.push(rw);
+            }      
+        }
+        return list;
     }
     function addDigust(roundedDisgust) {
-    var total = 0;
-    for (var i = 0; i < roundedDisgust.length; i++) {
-    total += parseFloat(roundedDisgust[i]);
-    }
-    var final = total / roundedDisgust.length;
-    return final;
+        var total = 0;
+        for (var i = 0; i < roundedDisgust.length; i++) {
+            total += parseFloat(roundedDisgust[i]);
+        }
+        var final = total / roundedDisgust.length;
+        return final;
     }
     //Anger
     function pullAnger(dataII) {
-    var list = [];
-    for (var i = 0; i < dataII.length; i++) {
-    var anger = dataII[i].scores.anger;
-    list.push(anger);
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < dataII.length; i++) {
+            var anger = dataII[i].scores.anger;
+            list.push(anger);
+        }
+        return list;
     }
     function roundAnger(anger) {
-    var list = [];
-    for (var i = 0; i < anger.length; i++) {
-    var rw = anger[i];
-    var x = rw.toString().length;
-    if (x >= 8) {
-        var r = rw.toString().slice(0, -5);
-        list.push(r);
-    } else {
-        list.push(rw);
-    }
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < anger.length; i++) {
+            var rw = anger[i];
+            var x = rw.toString().length;
+            if (x >= 8) {
+                var r = rw.toString().slice(0, -5);
+                list.push(r);
+            } else {
+                list.push(rw);
+            }
+        }
+        return list;
     }
     function addAnger(roundedAnger) {
-    var total = 0;
-    for (var i = 0; i < roundedAnger.length; i++) {
-    total += parseFloat(roundedAnger[i]);
-    }
-    var final = total / roundedAnger.length;
-    return final;
+        var total = 0;
+        for (var i = 0; i < roundedAnger.length; i++) {
+            total += parseFloat(roundedAnger[i]);
+        }
+        var final = total / roundedAnger.length;
+        return final;
     }
     //Happiness
     function pullHappiness(dataII) {
-    var list = [];
-    for (var i = 0; i < dataII.length; i++) {
-    var happiness = dataII[i].scores.happiness;
-    list.push(happiness);
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < dataII.length; i++) {
+            var happiness = dataII[i].scores.happiness;
+            list.push(happiness);
+        }
+        return list;
     }
     function roundHappiness(happiness) {
-    var list = [];
-    for (var i = 0; i < happiness.length; i++) {
-    var rw = happiness[i];
-    var x = rw.toString().length;
-    if (x >= 8) {
-        var r = rw.toString().slice(0, -5);
-        list.push(r);
-    } else {
-        list.push(rw);
-    }
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < happiness.length; i++) {
+            var rw = happiness[i];
+            var x = rw.toString().length;
+            if (x >= 8) {
+                var r = rw.toString().slice(0, -5);
+                list.push(r);
+            } else {
+                list.push(rw);
+            }
+        }
+        return list;
     }
     function addHappiness(roundedHappiness) {
-    var total = 0;
-    for (var i = 0; i < roundedHappiness.length; i++) {
-    total += parseFloat(roundedHappiness[i]);
-    }
-    var final = total / roundedHappiness.length;
-    return final;
+        var total = 0;
+        for (var i = 0; i < roundedHappiness.length; i++) {
+            total += parseFloat(roundedHappiness[i]);
+        }
+        var final = total / roundedHappiness.length;
+        return final;
     }
     //Fear
     function pullFear(dataII) {
-    var list = [];
-    for (var i = 0; i < dataII.length; i++) {
-    var fear = dataII[i].scores.fear;
-    list.push(fear);
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < dataII.length; i++) {
+            var fear = dataII[i].scores.fear;
+            list.push(fear);
+        }
+        return list;
     }
     function roundFear(fear) {
-    var list = [];
-    for (var i = 0; i < fear.length; i++) {
-    var rw = fear[i];
-    var x = rw.toString().length;
-    if (x >= 8) {
-        var r = rw.toString().slice(0, -5);
-        list.push(r);
-    } else {
-        list.push(rw);
-    }
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < fear.length; i++) {
+            var rw = fear[i];
+            var x = rw.toString().length;
+            if (x >= 8) {
+                var r = rw.toString().slice(0, -5);
+                list.push(r);
+            } else {
+                list.push(rw);
+            }
+        }
+        return list;
     }
 
     function addFear(roundedFear) {
-    var total = 0;
-    for (var i = 0; i < roundedFear.length; i++) {
-    total += parseFloat(roundedFear[i]);
-    }
-    var final = total / roundedFear.length;
-    return final;
+        var total = 0;
+        for (var i = 0; i < roundedFear.length; i++) {
+            total += parseFloat(roundedFear[i]);
+        }
+        var final = total / roundedFear.length;
+        return final;
     }
     //Neutral
     function pullNeutral(dataII) {
-    var list = [];
-    for (var i = 0; i < dataII.length; i++) {
-    var neutral = dataII[i].scores.neutral;
-    list.push(neutral);
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < dataII.length; i++) {
+            var neutral = dataII[i].scores.neutral;
+            list.push(neutral);
+        }
+        return list;
     }
     function roundNeutral(neutral) {
-    var list = [];
-    for (var i = 0; i < neutral.length; i++) {
-    var rw = neutral[i];
-    var x = rw.toString().length;
-    if (x >= 8) {
-        var r = rw.toString().slice(0, -5);
-        list.push(r);
-    } else {
-        list.push(rw);
-    }
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < neutral.length; i++) {
+            var rw = neutral[i];
+            var x = rw.toString().length;
+            if (x >= 8) {
+                var r = rw.toString().slice(0, -5);
+                list.push(r);
+            } else {
+                list.push(rw);
+            }
+        }
+        return list;
     }
     function addNeutral(roundedNeutral) {
-    var total = 0;
-    for (var i = 0; i < roundedNeutral.length; i++) {
-    total += parseFloat(roundedNeutral[i]);
-    }
-    var final = total / roundedNeutral.length;
-    return final;
+        var total = 0;
+        for (var i = 0; i < roundedNeutral.length; i++) {
+            total += parseFloat(roundedNeutral[i]);
+        }
+        var final = total / roundedNeutral.length;
+        return final;
     }
     //Sadness
     function pullSadness(dataII) {
-    var list = [];
-    for (var i = 0; i < dataII.length; i++) {
-    var sadness = dataII[i].scores.sadness;
-    list.push(sadness);
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < dataII.length; i++) {
+            var sadness = dataII[i].scores.sadness;
+            list.push(sadness);
+        }
+        return list;
     }
     function roundSadness(sadness) {
-    var list = [];
-    for (var i = 0; i < sadness.length; i++) {
-    var rw = sadness[i];
-    var x = rw.toString().length;
-    if (x >= 8) {
-        var r = rw.toString().slice(0, -5);
-        list.push(r);
-    } else {
-        list.push(rw);
-    }
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < sadness.length; i++) {
+            var rw = sadness[i];
+            var x = rw.toString().length;
+            if (x >= 8) {
+                var r = rw.toString().slice(0, -5);
+                list.push(r);
+            } else {
+                list.push(rw);
+            }
+        }
+        return list;
     }
     function addSadness(roundedSadness) {
-    var total = 0;
-    for (var i = 0; i < roundedSadness.length; i++) {
-    total += parseFloat(roundedSadness[i]);
-    }
-    var final = total / roundedSadness.length;
-    return final;
+        var total = 0;
+        for (var i = 0; i < roundedSadness.length; i++) {
+            total += parseFloat(roundedSadness[i]);
+        }
+        var final = total / roundedSadness.length;
+        return final;
     }
     //Surprise
     function pullSurprise(dataII) {
-    var list = [];
-    for (var i = 0; i < dataII.length; i++) {
-    var surprise = dataII[i].scores.surprise;
-    list.push(surprise);
-    }
-    return list;
+        var list = [];
+        for (var i = 0; i < dataII.length; i++) {
+            var surprise = dataII[i].scores.surprise;
+            list.push(surprise);
+        }
+        return list;
     }
     function roundSurprise(surprise) {
-    var list = [];
-    for (var i = 0; i < surprise.length; i++) {
-    var rw = surprise[i];
-    var x = rw.toString().length;
-    if (x >= 8) {
-        var r = rw.toString().slice(0, -5);
-        list.push(r);
-    } else {
-        list.push(rw);
-    }
+        var list = [];
+        for (var i = 0; i < surprise.length; i++) {
+            var rw = surprise[i];
+            var x = rw.toString().length;
+            if (x >= 8) {
+                var r = rw.toString().slice(0, -5);
+                list.push(r);
+            } else {
+                list.push(rw);
+            }
         }
-    return list;
+        return list;
     }
     function addSurprise(roundedSurprise) {
-    var total = 0;
-    for (var i = 0; i < roundedSurprise.length; i++) {
-    total += parseFloat(roundedSurprise[i]);
+        var total = 0;
+        for (var i = 0; i < roundedSurprise.length; i++) {
+            total += parseFloat(roundedSurprise[i]);
+        }
+        var final = total / roundedSurprise.length;
+        return final;
     }
-    var final = total / roundedSurprise.length;
-    return final;
-    }
+    //Check lowest value will not round to 0
     function Checker(finalDisgust, finalAnger, finalHappiness, finalFear, finalNeutral, finalSadness, finalSurprise) {
         var x = [finalDisgust, finalAnger, finalHappiness, finalFear, finalNeutral, finalSadness, finalSurprise];
         var y = [];     
@@ -289,33 +290,34 @@
     }
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback();
+    //Build Chart
     function drawChart(y) {
-    var disgust = y[0];
-    var anger = y[1];
-    var happiness = y[2];
-    var fear = y[3];
-    var neutral = y[4];
-    var sadness = y[5];
-    var surprise = y[6];
-    var data = google.visualization.arrayToDataTable([
-    ['Emotion', 'Value'],
-    ['Disgust', disgust],
-    ['Anger', anger],
-    ['Happiness', happiness],
-    ['Fear', fear],
-    ['Neutral', neutral],
-    ['Sadness', sadness],
-    ['Surprise', surprise]
-    ]);
+        var disgust = y[0];
+        var anger = y[1];
+        var happiness = y[2];
+        var fear = y[3];
+        var neutral = y[4];
+        var sadness = y[5];
+        var surprise = y[6];
+        var data = google.visualization.arrayToDataTable([
+            ['Emotion', 'Value'],
+            ['Disgust', disgust],
+            ['Anger', anger],
+            ['Happiness', happiness],
+            ['Fear', fear],
+            ['Neutral', neutral],
+            ['Sadness', sadness],
+            ['Surprise', surprise]
+        ]);
 
-    var options = {
-    title: 'Average Emotions',
-    is3D: true
-    };
-    var chart = new google.visualization.PieChart(document.getElementById('piechart'));
-    chart.draw(data, options);
+        var options = {
+            title: 'Average Emotions',
+            is3D: true
+        };
+        var chart = new google.visualization.PieChart(document.getElementById('piechart'));
+        chart.draw(data, options);
     }
-    </script>
+</script>
 </head> 
 <body>
 <h2>Analize</h2>
@@ -342,6 +344,7 @@
         var file = document.getElementById('filename');
         CallAPI(imageJSON.image.imgLocation, apiUrl, apiKey);
     });
+    // Convert image from base 64 to blob
     makeblob = function(file) {
         var BASE64_MARKER = ';base64,';
         if (file.indexOf(BASE64_MARKER) == -1) {
@@ -363,7 +366,7 @@
 
         return new Blob([uInt8Array], { type: contentType });
     }
-
+    //Call Emotions API
     function CallAPI(file, apiUrl, apiKey) {
         $.ajax({
                 url: apiUrl,

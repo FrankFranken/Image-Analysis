@@ -20,8 +20,6 @@ namespace Image_Analysis.Models
 
     public class ApplicationDbContext : IdentityDbContext<ApplicationUser>
     {
-        //WILL BREAK
-        //public DbSet<ImageGallery> ImageGallery { get; set; }
         public ApplicationDbContext()
             : base("DefaultConnection", throwIfV1Schema: false)
         {

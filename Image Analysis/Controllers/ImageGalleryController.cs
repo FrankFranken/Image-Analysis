@@ -20,7 +20,7 @@ using Image = System.Drawing.Image;
 
 namespace Image_Analysis.Controllers
 {
-    
+    [Authorize]
     public class ImageGalleryController : Controller
     {
         ApplicationDbContext _context = new ApplicationDbContext();

@@ -1,33 +1,42 @@
-﻿@{
+﻿@model Image_Analysis.Models.EmailFormModel
+@{
     ViewBag.Title = "Contact";
 }
 <h2>@ViewBag.Title.</h2>
-<h3>@ViewBag.Message</h3>
 
-<div class="col-xs-12 col-sm-6">
-    <div class="col-md-6 col-md-offset-6">
-        <h1 id="indexheader">Get In Touch</h1>
-        <form>
-            <div class="form-group" id="textarea">
-                <label for="textarea">First Name</label>
-                <input type="email" class="form-control" id="textarea" placeholder="Enter first name">
-                <small id="textarea"</small>
-            </div>
-            <div class="form-group">
-                <label for="textarea">Last Name</label>
-                <input type="email" class="form-control" id="textarea" placeholder="Enter last name">
-                <small id="textarea"</small>
-            </div>
-            <div class="form-group">
-                <label for="inputEmail">Email address</label>
-                <input type="email" class="form-control" id="inputEmail" aria-describedby="emailHelp" placeholder="Enter email">
-            </div>
-            <div class="form-group">
-                <label for="textarea">Message</label>
-                <textarea class="form-control" id="textarea" rows="3" placeholder="Enter message"></textarea>
-            </div>
-            <button type="submit" class="btn btn-info buttonmargin">Submit</button>
-        </form>
+@using (Html.BeginForm())
+{
+    @Html.AntiForgeryToken()
+    <h4>Send your comments.</h4>
+    <hr />
+    <div class="form-group">
+        @Html.LabelFor(m => m.FromName, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FromName, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FromName)
+        </div>
     </div>
-</div>
-</div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.FromEmail, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextBoxFor(m => m.FromEmail, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.FromEmail)
+        </div>
+    </div>
+    <div class="form-group">
+        @Html.LabelFor(m => m.Message, new { @class = "col-md-2 control-label" })
+        <div class="col-md-10">
+            @Html.TextAreaFor(m => m.Message, new { @class = "form-control" })
+            @Html.ValidationMessageFor(m => m.Message)
+        </div>
+    </div>
+    <div class="form-group">
+        <div class="col-md-offset-2 col-md-10">
+            <input type="submit" class="btn btn-default" value="Send" />
+        </div>
+    </div>
+}
+
+@section Scripts {
+    @Scripts.Render("~/bundles/jqueryval")
+}
