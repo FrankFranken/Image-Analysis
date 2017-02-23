@@ -245,8 +245,8 @@
   <ItemGroup>
     <Content Include="Content\bootstrap.css" />
     <Content Include="Content\bootstrap.min.css" />
-    <Content Include="Content\Images\Company3.jpg" />
-    <Content Include="Content\Images\company5.jpg" />
+    <Content Include="Content\Images\about.jpeg" />
+    <Content Include="Content\Solar.css" />
     <Content Include="favicon.ico" />
     <Content Include="fonts\glyphicons-halflings-regular.svg" />
     <Content Include="Global.asax" />
