@@ -32,7 +32,9 @@ namespace Image_Analysis.Controllers
 
         public ActionResult Gallery()
         {
+            
             List<ImageGallery> all = new List<ImageGallery>();
+            all.Clear();
             using (ImagesUploadEntities dc = new ImagesUploadEntities())
             {
                 if (dc.ImageGalleries != null)
@@ -42,12 +44,12 @@ namespace Image_Analysis.Controllers
                     {
                         if (image.Id == ID && image.Id != null)
                         {
-                            all = dc.ImageGalleries.ToList();
+                            all.Add(image);                    
                         }
                     }
                 }
-            }
                 return View(all);
+            }      
         }
         public ActionResult Analize(int id)
         {
