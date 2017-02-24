@@ -9,13 +9,14 @@
 @{
     ViewBag.Title = "Analize";
 }
+<style>
+  h2 {
+      margin-left: 0px;
+  }
+</style>
 <head>
-    @*<script src="@Url.Content("~/Scripts/Images.js")"></script>*@
-    
     <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
     <script src="http://ajax.googleapis.com/ajax/libs/jquery/1.9.0/jquery.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/tether/1.4.0/js/tether.min.js"></script>
-<script src="/Scripts/jquery-1.10.2.js"></script>
 <script>
     //Emotions
     function processResult(response) {
@@ -52,6 +53,7 @@
 
         Checker(finalDisgust, finalAnger, finalHappiness, finalFear, finalNeutral, finalSadness, finalSurprise);
     }
+
     //Disgust
     function pullDisgust(dataII) {
         var list = [];
@@ -61,6 +63,7 @@
         }
         return list;
     }
+
     function roundDisgust(disgust) {
         var list = [];
         for (var i = 0; i < disgust.length; i++) {
@@ -71,10 +74,11 @@
                 list.push(r);
             } else {
                 list.push(rw);
-            }      
+            }
         }
         return list;
     }
+
     function addDigust(roundedDisgust) {
         var total = 0;
         for (var i = 0; i < roundedDisgust.length; i++) {
@@ -83,6 +87,7 @@
         var final = total / roundedDisgust.length;
         return final;
     }
+
     //Anger
     function pullAnger(dataII) {
         var list = [];
@@ -92,6 +97,7 @@
         }
         return list;
     }
+
     function roundAnger(anger) {
         var list = [];
         for (var i = 0; i < anger.length; i++) {
@@ -106,6 +112,7 @@
         }
         return list;
     }
+
     function addAnger(roundedAnger) {
         var total = 0;
         for (var i = 0; i < roundedAnger.length; i++) {
@@ -114,6 +121,7 @@
         var final = total / roundedAnger.length;
         return final;
     }
+
     //Happiness
     function pullHappiness(dataII) {
         var list = [];
@@ -123,6 +131,7 @@
         }
         return list;
     }
+
     function roundHappiness(happiness) {
         var list = [];
         for (var i = 0; i < happiness.length; i++) {
@@ -137,6 +146,7 @@
         }
         return list;
     }
+
     function addHappiness(roundedHappiness) {
         var total = 0;
         for (var i = 0; i < roundedHappiness.length; i++) {
@@ -145,6 +155,7 @@
         var final = total / roundedHappiness.length;
         return final;
     }
+
     //Fear
     function pullFear(dataII) {
         var list = [];
@@ -154,6 +165,7 @@
         }
         return list;
     }
+
     function roundFear(fear) {
         var list = [];
         for (var i = 0; i < fear.length; i++) {
@@ -177,6 +189,7 @@
         var final = total / roundedFear.length;
         return final;
     }
+
     //Neutral
     function pullNeutral(dataII) {
         var list = [];
@@ -186,6 +199,7 @@
         }
         return list;
     }
+
     function roundNeutral(neutral) {
         var list = [];
         for (var i = 0; i < neutral.length; i++) {
@@ -200,6 +214,7 @@
         }
         return list;
     }
+
     function addNeutral(roundedNeutral) {
         var total = 0;
         for (var i = 0; i < roundedNeutral.length; i++) {
@@ -208,6 +223,7 @@
         var final = total / roundedNeutral.length;
         return final;
     }
+
     //Sadness
     function pullSadness(dataII) {
         var list = [];
@@ -217,6 +233,7 @@
         }
         return list;
     }
+
     function roundSadness(sadness) {
         var list = [];
         for (var i = 0; i < sadness.length; i++) {
@@ -231,6 +248,7 @@
         }
         return list;
     }
+
     function addSadness(roundedSadness) {
         var total = 0;
         for (var i = 0; i < roundedSadness.length; i++) {
@@ -239,6 +257,7 @@
         var final = total / roundedSadness.length;
         return final;
     }
+
     //Surprise
     function pullSurprise(dataII) {
         var list = [];
@@ -248,6 +267,7 @@
         }
         return list;
     }
+
     function roundSurprise(surprise) {
         var list = [];
         for (var i = 0; i < surprise.length; i++) {
@@ -262,6 +282,7 @@
         }
         return list;
     }
+
     function addSurprise(roundedSurprise) {
         var total = 0;
         for (var i = 0; i < roundedSurprise.length; i++) {
@@ -270,26 +291,27 @@
         var final = total / roundedSurprise.length;
         return final;
     }
+
     //Check lowest value will not round to 0
     function Checker(finalDisgust, finalAnger, finalHappiness, finalFear, finalNeutral, finalSadness, finalSurprise) {
         var x = [finalDisgust, finalAnger, finalHappiness, finalFear, finalNeutral, finalSadness, finalSurprise];
-        var y = [];     
+        var y = [];
         for (var i = 0; i < 7; i++) {
             if (x[i] < 0.5) {
                 z = x[i] * 100000;
-            }
-            else if (x[i] >= 1) {
+            } else if (x[i] >= 1) {
+                z = x[i];
+            } else {
                 z = x[i];
             }
-            else {
-                z = x[i];
-            }
-            y.push(z);       
+            y.push(z);
         }
         drawChart(y);
     }
+
     google.charts.load('current', { 'packages': ['corechart'] });
     google.charts.setOnLoadCallback();
+
     //Build Chart
     function drawChart(y) {
         var disgust = y[0];
@@ -316,20 +338,86 @@
         };
         var chart = new google.visualization.PieChart(document.getElementById('piechart'));
         chart.draw(data, options);
+        var results = tips(disgust, anger, happiness, fear, neutral, sadness, surprise);
+        document.getElementById("id1").innerHTML = results;
+    }
+
+    function tips(disgust, anger, happiness, fear, neutral, sadness, surprise) {
+        if (disgust > anger &&
+            disgust > happiness &&
+            disgust > fear &&
+            disgust > neutral &&
+            disgust > sadness &&
+            disgust > surprise) {
+            var result = "Your primary emotion is Disgust, “The fastest way to kill morale is to treat an employee like a resource similar to a stamp press or die cutter,” said Curtis Stuehrenberg of Accelrys. Instead, small gestures like learning your employees’ names, and sending flowers when they are sick can go a long way.";
+            return result;
+        } else if
+            (anger > disgust &&
+                anger > happiness &&
+                anger > fear &&
+                anger > neutral &&
+                anger > sadness &&
+                anger > surprise){
+            var result = "Your primary emotion is Anger. “No one wants to leave a place where they are having fun,” said recruiter Abby Kohut at Staffing Symphony LLC. “For little to no cost employers can implement programs that make their employees smile.” Her suggestions include potluck cooking contests, baby picture contests, and department shows.";
+            return result;
+        } else if
+        (happiness > disgust &&
+            happiness > anger &&
+            happiness > fear &&
+            happiness > neutral &&
+            happiness > sadness &&
+            happiness > surprise) {
+            var result = "Your primary emotion is Happiness! Good job on promoting great company culture.";
+            return result;
+        } else if
+        (fear > disgust &&
+            fear > anger &&
+            fear > happiness &&
+            fear > neutral &&
+            fear > sadness &&
+            fear > surprise) {
+            var result = "Your primary emotion is Fear. One of the top reasons employees leave a company is lack of development opportunities, so providing your employees with professional effective training is sure to boost morale,” said Robert Bilotti of Novita.";
+            return result;
+        } else if
+        (neutral > disgust &&
+            neutral > anger &&
+            neutral > happiness &&
+            neutral > fear &&
+            neutral > sadness &&
+            neutral > surprise) {
+            var result = "Your primary emotion is Neutral. All of your employees can point out inefficiencies in your organization, but not all feel empowered to do so. Paul Vragel of 4aBetterBusiness, Inc. recommends listening to employees to learn about what gets “in the way of the good job they want to do” and then involving them in the process to eliminate these barriers. Using this approach, he helped a mid-market manufacturing company implement almost 100 ideas that increased earnings by 30% within a few months.";
+            return result;
+         } else if
+         (sadness > disgust &&
+            sadness > anger &&
+            sadness > happiness &&
+            sadness > fear &&
+            sadness > neutral &&
+            sadness > surprise) {
+             var result = "Your primary emotion is Sadness. Tell people when they are doing a fabulous job. It is so simple, and works so well. This piece of advice was by far the most common response I heard when asking professionals how to boost employee morale. Praise your employees at staff meetings, or take the time to thank them in a hand-written note. Whatever the message, the most important thing is that employees know that their hard work is noticed and appreciated.";
+             return result;
+         } else if
+        (surprise > disgust &&
+            surprise > anger &&
+            surprise > happiness &&
+            surprise > fear &&
+            surprise > neutral &&
+            surprise > sadness) {
+             var result = "Your primary emotion is Surprise. Nobody likes to be the last to know, but when employees don’t know what is going on in their own company, productive time can give way to duplicate or unnecessary efforts on the part of the staff. Worse yet, when employees are only given part of the story, not the whole picture, they are left to fill in the blanks with gossip, rumors, and worry.";
+             return result;
+        }       
     }
 </script>
 </head> 
 <body>
 <h2>Analize</h2>
-<table>
-    <tr>
-        <td>
-            <img src="data:image/png;base64,@Model.Image" height ="400" id="filename" data-container="body" data-toggle="popover" data-content="hello world"/>
+    <center>
+        <div>
+            <img src="data:image/png;base64,@Model.Image" height="400" id="filename" data-container="body" data-toggle="popover" data-content="hello world" />
             <button id="btn">Analize</button>
-        </td>
-    </tr>
-</table>
-    <p id="response"></p>
+        </div>
+    </center>     
+<p id="response"></p>
 <script type="text/javascript">
     var file = document.getElementById('filename');
     var imageJSON = {
@@ -389,7 +477,11 @@
             });
         
     }
-</script>
-    <div id="piechart" style="width: 900px; height: 500px;"></div>  
-    
+</script>   
+<center>
+    <div id="piechart" style="width: 1000px; height: 600px;"></div>
+</center>
+        <div>
+            <h2 id="id1"></h2>
+        </div>
 </body>

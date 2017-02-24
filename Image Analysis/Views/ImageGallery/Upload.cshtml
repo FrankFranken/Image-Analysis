@@ -3,14 +3,20 @@
 @{
     ViewBag.Title = "Upload";
 }
-
+<style>
+body {
+        background-image: url("../../Content/images/upload.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+</style>
 <h2>Upload</h2>
 @using (Html.BeginForm("Upload", "ImageGallery", FormMethod.Post, new {enctype = "multipart/form-data"}))
 {
     @Html.ValidationSummary(true)
     <table>
         <tr>
-        <td>Select File : </td>
+        <td>  Select File  </td>
             <td>
                 @Html.TextBoxFor(Model => Model.File, new {type="File"})
                 @Html.ValidationMessage("CustomError")

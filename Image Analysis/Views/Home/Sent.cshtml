@@ -2,9 +2,23 @@
 @{
     ViewBag.Title = "Sent";
 }
-<h2>Your message has been sent</h2>
-<script>
-window.setTimeout(function() {
-    window.location.href = "@Url.Action("Index", "Home" )";
-}, 3500);
+<style>
+    body {
+        background-image: url("../../Content/images/contact.jpg");
+        background-repeat: no-repeat;
+        background-size: cover;
+    }
+    h1 {
+        padding-top: 45px;
+        margin-left: 255px;
+    }
+</style>
+
+<script>  
+    window.setTimeout(function() {
+        window.location.href = "@Url.Action("Index", "Home" )";
+    }, 3500);
 </script>
+<body>
+<h1>Message Sent</h1>
+</body>
